@@ -40,7 +40,7 @@ EOF
     local TS_TEMPLATE=$(cat << EOT
 import { Component } from '@angular/core';
 
-import '${SCSS_FILE_PATH}'
+import '${SCSS_FILE_PATH}';
 
 @Component({
   selector: '${COMPONENT_NAME}-selector',
@@ -91,9 +91,12 @@ EOF
 }  
 
 checkArgs
-checkEnv
+if [ $? = 0 ]; then
+  checkEnv
+fi
 
 if [ $? = 0 ]; then
-    generateComponentFiles
+  generateComponentFiles
 fi
+  
 
