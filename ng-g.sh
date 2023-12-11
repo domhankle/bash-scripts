@@ -1,18 +1,19 @@
 #!/usr/bin/bash
 
+FOLDER_PATH=$2
 SING_DIR=${DEV_DIR}/singularity
 COMPONENT_NAME=$1
-DIRECTORY=${SING_DIR}/src/app/$2
+DIRECTORY=${SING_DIR}/src/app/${FOLDER_PATH}
 
 
 checkArgs(){
   if [ -z $COMPONENT_NAME ]; then
-    echo You need to specify a component name;
+    echo You need to specify a component name
     exit 1  
   fi
 
-  if [ -z $DIRECTORY ]; then
-    echo You need to specify a directory path for the component;
+  if [ -z $FOLDER_PATH ]; then
+    echo You need to specify a folder path for the component to be held in
     exit 1
   fi
   return 0
