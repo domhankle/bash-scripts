@@ -19,6 +19,51 @@ checkArgs(){
 
 }
 
+populateTSFile(){
+
+  local TS_FILE_PATH=${DIRECTORY}/${COMPONENT_NAME}.component.ts
+  local SCSS_FILE_PATH=${DIRECTORY}/${COMPONENT_NAME}.component.scss
+
+  cat << EOF
+Creating TS File Template at ${TS_FILE_PATH}...
+EOF
+
+  if [ -e $TS_FILE_PATH ]; then
+    local TS_TEMPLATE=$(cat << EOT
+import { Component } from '@angular/core';
+
+import '${SCSS_FILE_PATH}'
+
+@Component({
+  selector: '${COMPONENT_NAME}-selector',
+  template: require('./example.component.html')
+})
+export class ExampleComponent implements OnInit {
+
+  constructor() { }
+}
+EOT
+)
+  echo -e "$TS_TEMPLATE" >> $TS_FILE_PATH
+fi
+
+}
+
+populateSCSSFile(){
+
+  local SCSS_FILE_PATH=${DIRECTORY}/${COMPONENT_NAME}.component.scss
+  cat << EOF
+Creating SCSS File Template at ${SCSS_FILE_PATH}...
+EOF
+  
+  if [ -e $SCSS_FILE_PATH ]; then
+    echo -e ${COMPONENT_NAME} { "\n""\n"} >> $SCSS_FILE_PATH
+    populateTSFile
+  fi
+
+
+}
+
 generateComponentFiles(){
   
   cat << EOF
@@ -34,6 +79,7 @@ EOF
   touch ${DIRECTORY}/${COMPONENT_NAME}.component.scss
   touch ${DIRECTORY}/${COMPONENT_NAME}.component.spec.ts
   
+  populateSCSSFile
 }  
 
 checkArgs
