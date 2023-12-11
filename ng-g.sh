@@ -30,6 +30,7 @@ populateTSFile(){
 
   local TS_FILE_PATH=${DIRECTORY}/${COMPONENT_NAME}.component.ts
   local SCSS_FILE_PATH=./${COMPONENT_NAME}.component.scss
+  local HTML_FILE_PATH=./${COMPONENT_NAME}.component.html
 
   cat << EOF
 Creating TS File Template at ${TS_FILE_PATH}...
@@ -43,7 +44,7 @@ import '${SCSS_FILE_PATH}'
 
 @Component({
   selector: '${COMPONENT_NAME}-selector',
-  template: require('./example.component.html')
+  template: require('${HTML_FILE_PATH}')
 })
 export class ${COMPONENT_NAME}Component{
 
