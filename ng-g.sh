@@ -29,7 +29,7 @@ checkEnv(){
 populateTSFile(){
 
   local TS_FILE_PATH=${DIRECTORY}/${COMPONENT_NAME}.component.ts
-  local SCSS_FILE_PATH=${DIRECTORY}/${COMPONENT_NAME}.component.scss
+  local SCSS_FILE_PATH=./${COMPONENT_NAME}.component.scss
 
   cat << EOF
 Creating TS File Template at ${TS_FILE_PATH}...
@@ -45,7 +45,7 @@ import '${SCSS_FILE_PATH}'
   selector: '${COMPONENT_NAME}-selector',
   template: require('./example.component.html')
 })
-export class ExampleComponent implements OnInit {
+export class ${COMPONENT_NAME}Component{
 
   constructor() { }
 }
