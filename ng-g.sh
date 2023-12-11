@@ -1,11 +1,11 @@
 #!/usr/bin/bash
 
+SING_DIR=${DEV_DIR}/singularity
 COMPONENT_NAME=$1
-DIRECTORY=$2
+DIRECTORY=${SING_DIR}/src/app/$2
 
 
 checkArgs(){
-
   if [ -z $COMPONENT_NAME ]; then
     echo You need to specify a component name;
     return 1  
@@ -17,6 +17,13 @@ checkArgs(){
   fi
   return 0
 
+}
+
+checkEnv(){
+  if [ -z $DEV_DIR ]; then
+    echo You need to set the DEV_DIR environmental variable in your bashrc.
+    return 0
+  fi
 }
 
 populateTSFile(){
@@ -83,6 +90,7 @@ EOF
 }  
 
 checkArgs
+checkEnv
 
 if [ $? = 0 ]; then
     generateComponentFiles
